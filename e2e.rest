@@ -1,12 +1,12 @@
-@baseUrl = http://localhost:4000/idea
+@baseUrl = http://localhost:4000
 
 ### Get Ideas
-GET {{baseUrl}}/
+GET {{baseUrl}}/idea
 
 
 ### Create Idea
 # @name createIdea
-POST {{baseUrl}}/
+POST {{baseUrl}}/idea
 Content-Type: application/json
 
 {
@@ -17,10 +17,10 @@ Content-Type: application/json
 @ideaId = {{createIdea.response.body.$.id}}
 
 ### Get a Idea
-GET {{baseUrl}}/{{ideaId}}
+GET {{baseUrl}}/idea/{{ideaId}}
 
 ### Update Idea
-PUT {{baseUrl}}/{{ideaId}}
+PUT {{baseUrl}}/idea/{{ideaId}}
 Content-Type: application/json
 
 {
@@ -29,5 +29,9 @@ Content-Type: application/json
 }
 
 ### Delete Idea
-DELETE {{baseUrl}}/{{ideaId}}
+DELETE {{baseUrl}}/idea/{{ideaId}}
+
+
+### Error Not found page
+GET {{baseUrl}}/err
 
