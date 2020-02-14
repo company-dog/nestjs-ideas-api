@@ -1,0 +1,33 @@
+@baseUrl = http://localhost:4000/idea
+
+### Get Ideas
+GET {{baseUrl}}/
+
+
+### Create Idea
+# @name createIdea
+POST {{baseUrl}}/
+Content-Type: application/json
+
+{
+    "idea": "my idea21",
+    "description": "my idea21 description"
+}
+
+@ideaId = {{createIdea.response.body.$.id}}
+
+### Get a Idea
+GET {{baseUrl}}/{{ideaId}}
+
+### Update Idea
+PUT {{baseUrl}}/{{ideaId}}
+Content-Type: application/json
+
+{
+    "idea": "update my idea21",
+    "description": "update my idea21 description"
+}
+
+### Delete Idea
+DELETE {{baseUrl}}/{{ideaId}}
+
