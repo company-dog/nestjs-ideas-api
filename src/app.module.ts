@@ -8,9 +8,10 @@ import { IdeaModule } from './idea/idea.module';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { HttpErrorFilter } from './shared/http-error.filter';
 import { LoggingInterceptor } from './shared/logging.intercepter';
+import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(typeOrmConfig), IdeaModule],
+  imports: [TypeOrmModule.forRoot(typeOrmConfig), IdeaModule, UserModule],
   controllers: [AppController],
   providers: [
     AppService,

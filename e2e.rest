@@ -1,12 +1,35 @@
 @baseUrl = http://localhost:4000
 
+
+### Get Users
+GET {{baseUrl}}/api/users
+
+
+### Register User
+POST {{baseUrl}}/register
+Content-Type: application/json
+
+{
+    "username": "hanataro",
+    "password": "hanataronopassword"
+}
+
+### Login User 
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+    "username": "hanataro",
+    "password": "hanataronopassword"
+}
+
 ### Get Ideas
-GET {{baseUrl}}/idea
+GET {{baseUrl}}/api/ideas
 
 
 ### Create Idea
 # @name createIdea
-POST {{baseUrl}}/idea
+POST {{baseUrl}}/api/ideas
 Content-Type: application/json
 
 {
@@ -17,10 +40,10 @@ Content-Type: application/json
 @ideaId = {{createIdea.response.body.$.id}}
 
 ### Get a Idea
-GET {{baseUrl}}/idea/{{ideaId}}
+GET {{baseUrl}}/api/ideas/{{ideaId}}
 
 ### Update Idea
-PUT {{baseUrl}}/idea/{{ideaId}}
+PUT {{baseUrl}}/api/ideas/{{ideaId}}
 Content-Type: application/json
 
 {
@@ -29,7 +52,7 @@ Content-Type: application/json
 }
 
 ### Delete Idea
-DELETE {{baseUrl}}/idea/{{ideaId}}
+DELETE {{baseUrl}}/api/ideas/{{ideaId}}
 
 
 ### Error Not found page
