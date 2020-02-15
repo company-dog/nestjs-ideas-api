@@ -1,27 +1,35 @@
 @baseUrl = http://localhost:4000
 
 
-### Get Users
-GET {{baseUrl}}/api/users
-
-
 ### Register User
+# @name registerUser
 POST {{baseUrl}}/register
 Content-Type: application/json
 
 {
-    "username": "hanataro",
-    "password": "hanataronopassword"
+    "username": "komanechi",
+    "password": "komanechipass"
 }
 
+@token = {{registerUser.response.body.$.token}}
+
 ### Login User 
+# @name loginUser
 POST {{baseUrl}}/login
 Content-Type: application/json
 
 {
-    "username": "hanataro",
-    "password": "hanataronopassword"
+    "username": "komanechi",
+    "password": "komanechipass"
 }
+
+@loginToken = {{loginUser.response.body.$.token}}
+
+### Get Users
+GET {{baseUrl}}/api/users
+Authorization: Bearer {{loginToken}}
+
+
 
 ### Get Ideas
 GET {{baseUrl}}/api/ideas
