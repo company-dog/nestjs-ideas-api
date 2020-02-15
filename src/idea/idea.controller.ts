@@ -8,26 +8,38 @@ import {
   Param,
   UsePipes,
   Logger,
+  UseGuards,
+  Options,
 } from '@nestjs/common';
 import { IdeaService } from './idea.service';
 import { IdeaDto } from './idea.dto';
 import { ValidationPipe } from '../shared/validation.pipe';
+import { AuthGuard } from 'src/shared/auth.guard';
+import { User } from 'src/user/user.decorator';
 
 @Controller('api/ideas')
 export class IdeaController {
   private logger = new Logger('IdeaController');
 
   constructor(private readonly ideaService: IdeaService) {}
+
+  private logData(options: any) {
+    options.user && this.logger.log('USER ' + JSON.stringify(options.user));
+    options.data && this.logger.log('DATA ' + JSON.stringify(options.body));
+    options.id && this.logger.log('IDEA' + JSON.stringify(options.id));
+  }
+
   @Get()
   showAllIdeas() {
     return this.ideaService.showAll();
   }
 
   @Post()
+  @UseGuards(new AuthGuard())
   @UsePipes(new ValidationPipe())
-  createIdea(@Body() data: IdeaDto) {
-    this.logger.log(JSON.stringify(data));
-    return this.ideaService.create(data);
+  createIdea(@User('id') user: string, @Body() data: IdeaDto) {
+    this.logData({ user, data });
+    return this.ideaService.create(user, data);
   }
 
   @Get(':id')
@@ -36,14 +48,21 @@ export class IdeaController {
   }
 
   @Put(':id')
+  @UseGuards(new AuthGuard())
   @UsePipes(new ValidationPipe())
-  updateIdea(@Param('id') id: string, @Body() data: Partial<IdeaDto>) {
-    this.logger.log(JSON.stringify(data));
-    return this.ideaService.update(id, data);
+  updateIdea(
+    @Param('id') id: string,
+    @User('id') user: string,
+    @Body() data: Partial<IdeaDto>,
+  ) {
+    this.logData({ id, user, data });
+    return this.ideaService.update(id, user, data);
   }
 
   @Delete(':id')
-  destroyIdea(@Param('id') id: string) {
-    return this.ideaService.destroy(id);
+  @UseGuards(new AuthGuard())
+  destroyIdea(@Param('id') id: string, @User('id') user: string) {
+    this.logData({ id, user });
+    return this.ideaService.destroy(id, user);
   }
 }

@@ -33,12 +33,14 @@ Authorization: Bearer {{loginToken}}
 
 ### Get Ideas
 GET {{baseUrl}}/api/ideas
+Authorization: Bearer {{loginToken}}
 
 
 ### Create Idea
 # @name createIdea
 POST {{baseUrl}}/api/ideas
 Content-Type: application/json
+Authorization: Bearer {{loginToken}}
 
 {
     "idea": "my idea21",
@@ -49,10 +51,12 @@ Content-Type: application/json
 
 ### Get a Idea
 GET {{baseUrl}}/api/ideas/{{ideaId}}
+Authorization: Bearer {{loginToken}}
 
 ### Update Idea
 PUT {{baseUrl}}/api/ideas/{{ideaId}}
 Content-Type: application/json
+Authorization: Bearer {{loginToken}}
 
 {
     "idea": "update my idea21",
@@ -61,6 +65,7 @@ Content-Type: application/json
 
 ### Delete Idea
 DELETE {{baseUrl}}/api/ideas/{{ideaId}}
+Authorization: Bearer {{loginToken}}
 
 
 ### Error Not found page
